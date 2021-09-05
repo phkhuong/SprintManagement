@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './theme/header/header.component';
+import { ThemeModule } from './theme/theme.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -10,6 +14,10 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
+    ThemeModule,
+    BrowserAnimationsModule,
+    PagesModule,
     AppRoutingModule
   ],
   providers: [],

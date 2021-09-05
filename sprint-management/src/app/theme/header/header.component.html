@@ -1,1 +1,15 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <!-- <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        </button> -->
+        <h1>Sprint Management</h1>
+        <span class="menu-spacer"></span>
+        <div>
+        <a mat-button routerLink="/"> Dashboard </a>
+        <a mat-button routerLink="/users"> User </a>
+        <a mat-button routerLink="/schedules"> Schedule </a>
+        <a mat-button routerLink="/login"> Login </a>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
