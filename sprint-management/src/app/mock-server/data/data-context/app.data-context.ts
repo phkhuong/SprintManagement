@@ -8,7 +8,5 @@ export class AppDataContext {
 
 	public static tasks: any = TasksTable.tasks;
 
-	// e-commerce car remarks
-	// one => many relations
 	public static schedules: any = SchedulesTable.schedules;
 }
