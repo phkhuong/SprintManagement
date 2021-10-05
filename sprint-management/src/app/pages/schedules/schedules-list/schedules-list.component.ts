@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ScheduleModel } from 'src/app/core/models/schedule.model';
+import { SchedulesService } from 'src/app/state/schedules.table';
 
 export interface PeriodicElement {
   creator: string;
@@ -20,14 +23,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './schedules-list.component.html',
   styleUrls: ['./schedules-list.component.css']
 })
-export class SchedulesListComponent implements OnInit {
-
-  constructor() { }
+export class SchedulesListComponent implements OnInit, OnDestroy {
+  schedules: ScheduleModel[];
+  private subscriptions: Subscription[]= [];
+  constructor(private scheduleService: SchedulesService) { }
 
   ngOnInit(): void {
+    const schedulesSubscription = this.scheduleService.getAllSchedules().subscribe(res => {
+      this.schedules = res;
+    })
+    this.subscriptions.push(schedulesSubscription);
   }
 
-  displayedColumns: string[] = ['title', 'creator', 'description', 'location', 'start_time', 'end_time', 'actions'];
-  dataSource = ELEMENT_DATA;
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
 
+  displayedColumns: string[] = ['title', 'creator', 'description', 'location', 'startTime', 'endTime', 'actions'];
 }

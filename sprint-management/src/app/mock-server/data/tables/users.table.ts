@@ -3,17 +3,17 @@ export class UsersTable {
         {
             'id': 1,
             'name': 'Nguyen Van A',
-            'position': 0, 
+            'position': 'Developer', 
         },
         {
             'id': 2,
             'name': 'Nguyen Thi B',
-            'position': 1, 
+            'position': 'PM', 
         },
         {
             'id': 3,
             'name': 'Pham Van C',
-            'position': 2, 
+            'position': 'QC', 
         }
     ]
 }

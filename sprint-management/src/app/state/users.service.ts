@@ -5,7 +5,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { mergeMap, delay } from 'rxjs/operators';
 
 import {UserModel} from '../core/models/user.model';
-import {HttpUtilsService} from '../core/services/httpUtils.service'
+import {HttpUtilsService} from '../core/services/http-utils.service'
 
 const API_USERS_URL = 'api/users';
 

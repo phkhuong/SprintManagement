@@ -6,14 +6,8 @@
               <mat-card-title>New Task</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p>
-                Task 1
-              </p>
-              <p>
-                Task 2
-              </p>
-              <p>
-                Task 3
+              <p *ngFor="let task of newTasks">
+                {{task.title}}
               </p>
             </mat-card-content>
             <mat-card-actions>
@@ -26,14 +20,8 @@
               <mat-card-title>Tasks in process</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p>
-                Task 1
-              </p>
-              <p>
-                Task 2
-              </p>
-              <p>
-                Task 3
+              <p *ngFor="let task of inProcessTasks">
+                {{task.title}}
               </p>
             </mat-card-content>
           </mat-card>
@@ -43,14 +31,8 @@
               <mat-card-title>Task got done</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p>
-                Task 1
-              </p>
-              <p>
-                Task 2
-              </p>
-              <p>
-                Task 3
+              <p *ngFor="let task of completedTasks">
+                {{task.title}}
               </p>
             </mat-card-content>
           </mat-card>

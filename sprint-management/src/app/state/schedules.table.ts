@@ -5,7 +5,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { mergeMap, delay } from 'rxjs/operators';
 
 import {ScheduleModel} from '../core/models/schedule.model';
-import {HttpUtilsService} from '../core/services/httpUtils.service'
+import {HttpUtilsService} from '../core/services/http-utils.service'
 
 const API_SCHEDULES_URL = 'api/schedules';
 

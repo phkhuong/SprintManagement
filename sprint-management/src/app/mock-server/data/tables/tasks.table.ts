@@ -4,13 +4,13 @@ export class TasksTable {
             'id': 1,
             'title': 'Task1',
             'description': 'Hello World',
-            'status': 0,
+            'status': 3,
         },
         {
             'id': 2,
             'title': 'Task2',
             'description': 'Hello World',
-            'status': 0
+            'status': 3
         },
         {
             'id': 3,

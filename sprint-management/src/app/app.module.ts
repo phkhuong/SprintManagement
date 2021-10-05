@@ -9,6 +9,11 @@ import { PagesModule } from './pages/pages.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeApiService } from './mock-server/fake.api.service';
+import { TasksService } from './state/tasks.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpUtilsService } from './core/services/http-utils.service';
+import { UsersService } from './state/users.service';
+import { SchedulesService } from './state/schedules.table';
 
 @NgModule({
   declarations: [
@@ -22,9 +27,15 @@ import { FakeApiService } from './mock-server/fake.api.service';
     PagesModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientInMemoryWebApiModule.forRoot(FakeApiService)
+    HttpClientInMemoryWebApiModule.forRoot(FakeApiService),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    HttpUtilsService,
+    TasksService,
+    UsersService,
+    SchedulesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
