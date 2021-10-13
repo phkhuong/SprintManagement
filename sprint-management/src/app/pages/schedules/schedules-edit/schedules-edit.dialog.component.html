@@ -1,1 +1,46 @@
-<p>schedules-edit works!</p>
+<div class="container">
+    <form [formGroup]="scheduleForm">
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Location</mat-label>
+          <textarea matInput formControlName="location"></textarea>
+      </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate formControlName="startTime" placeholder="Start date" required>
+              <input matEndDate formControlName="endTime" placeholder="End date" required>
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          
+            <mat-error *ngIf="scheduleForm.controls.startTime.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+            <mat-error *ngIf="scheduleForm.controls.endTime.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+          </mat-form-field>
+      </p>
+      <button type="button" mat-raised-button mat-dialog-close
+          matTooltip="Cancel changes">
+        Hủy
+      </button>&nbsp;
+      <button type="button" mat-raised-button color="primary" (click)="onSubmit()"
+          matTooltip="Save changes">
+        Lưu
+      </button>
+    </form>
+    
+  </div>
+  

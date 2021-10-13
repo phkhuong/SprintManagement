@@ -6,12 +6,12 @@
               <mat-card-title>New Task</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p *ngFor="let task of newTasks">
+              <p [routerLink]="['/task', task.id]" *ngFor="let task of newTasks">
                 {{task.title}}
               </p>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-raised-button color="primary">Add</button>
+              <button routerLink="/task" mat-raised-button color="primary">Add</button>
             </mat-card-actions>
           </mat-card>
           <mat-card class="col-md-4">

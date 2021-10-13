@@ -18,9 +18,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const tasksSubscription = this.taskService.getAllTasks().subscribe(res =>{
-      this.newTasks = res.filter(t => t.status == 1);
-      this.inProcessTasks = res.filter(t => t.status == 2);
-      this.completedTasks = res.filter(t => t.status == 3);
+      this.newTasks = res.filter(t => t.status == 'new');
+      this.inProcessTasks = res.filter(t => t.status == 'inProgress');
+      this.completedTasks = res.filter(t => t.status == 'done');
     })
     this.subscriptions.push(tasksSubscription);
   }

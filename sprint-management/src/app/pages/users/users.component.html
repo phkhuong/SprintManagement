@@ -1,18 +1,41 @@
 <div class="container-fluid">
-    <button mat-button color="primary">Add</button>
+    <button *ngIf="!isAddMode && editableUserId != user.id" mat-button color="primary" (click)="toAddMode()">Add</button>
+    <button *ngIf="isAddMode" mat-button color="primary" (click)="cancelAdd()">Cancel</button>
+    <form [formGroup]="userForm">
+
     <div class="row">
-        <mat-card *ngFor="let user of users" class="col-md-3">
+      <mat-card *ngIf="isAddMode" class="col-md-3">
+        <mat-card-content>
+          <input type="text" class="form-control" formControlName="name">
+          <input type="text" class="form-control" formControlName="position">
+          <img mat-card-image src="./assets/media/users/default.jpg" alt="default picture">
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="onSubmit()">Create</button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-card *ngFor="let user of users; index as idx" class="col-md-3">
             <mat-card-header>
-              <mat-card-title>{{user.name}}</mat-card-title>
-              <mat-card-subtitle>{{user.position}}</mat-card-subtitle>
+                <mat-card-title *ngIf="editableUserId != user.id">{{user.name}}</mat-card-title>
+                <mat-card-subtitle *ngIf="editableUserId != user.id">{{user.position}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
+              <ng-container *ngIf="editableUserId == user.id">
+                <input value="{{user.name}}" type="text" class="form-control" formControlName="name">
+                <input value="{{user.position}}" type="text" class="form-control" formControlName="position">
+              </ng-container>
               <img mat-card-image src="./assets/media/users/default.jpg" alt="default picture">
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button>Edit</button>
-              <button mat-button>Remove</button>
+              <button *ngIf="editableUserId != user.id && !isAddMode" mat-button (click)="toEditMode(user)">Edit</button>
+              <ng-container *ngIf="editableUserId == user.id">
+                <button mat-button (click)="onSubmit()">Update</button>
+                <button mat-button (click)="cancelEdit()">Cancel</button>
+              </ng-container>
+              <button mat-button (click)="deleteUser(user)">Remove</button>
             </mat-card-actions>
-          </mat-card>
+        </mat-card>
+
     </div>
+  </form>
 </div>

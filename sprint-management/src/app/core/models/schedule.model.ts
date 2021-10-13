@@ -5,5 +5,4 @@ export class ScheduleModel {
     location: string;
     startTime: Date;
     endTime: Date;
-    status: number;
 }

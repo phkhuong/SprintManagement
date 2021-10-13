@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ScheduleModel } from 'src/app/core/models/schedule.model';
 import { SchedulesService } from 'src/app/state/schedules.table';
+import {SchedulesEditDialogComponent} from '../schedules-edit/schedules-edit.dialog.component'
 
 export interface PeriodicElement {
   creator: string;
@@ -12,12 +14,6 @@ export interface PeriodicElement {
   end_time: Date;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {title: 'Meeting', creator: 'Le Cao', description: 'Retro', location: 'Toorak', start_time: new Date('2021-09-27T03:24:00'), end_time: new Date('2021-09-27T04:24:00')},
-  {title: 'Meeting', creator: 'Khuong Pham', description: 'Release', location: 'Toorak', start_time: new Date('2021-09-27T03:24:00'), end_time: new Date('2021-09-27T04:24:00')},
-  {title: 'Meeting', creator: 'Tam Pham', description: 'Stand up', location: 'Toorak', start_time: new Date('2021-09-27T03:24:00'), end_time: new Date('2021-09-27T04:24:00')},
-];
-
 @Component({
   selector: 'app-schedules-list',
   templateUrl: './schedules-list.component.html',
@@ -26,17 +22,44 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class SchedulesListComponent implements OnInit, OnDestroy {
   schedules: ScheduleModel[];
   private subscriptions: Subscription[]= [];
-  constructor(private scheduleService: SchedulesService) { }
+  constructor(private scheduleService: SchedulesService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    const schedulesSubscription = this.scheduleService.getAllSchedules().subscribe(res => {
-      this.schedules = res;
-    })
-    this.subscriptions.push(schedulesSubscription);
+    this.loadSchedules();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  editSchedule(schedule: ScheduleModel):void {
+    const dialogRef = this.dialog.open(
+      SchedulesEditDialogComponent,
+      {
+        // minWidth: "400px",
+        // width: "1000px",
+        data: { schedule: schedule }
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        if(!res){
+          return;
+        }
+        this.loadSchedules();
+      })
+  }
+
+  deleteSchedule(schedule:ScheduleModel):void{
+    const deleteSubscription = this.scheduleService.deleteSchedule(schedule.id).subscribe(res => {
+      this.loadSchedules();
+    });
+    this.subscriptions.push(deleteSubscription);
+  }
+
+  loadSchedules(){
+    const schedulesSubscription = this.scheduleService.getAllSchedules().subscribe(res => {
+      this.schedules = res;
+    })
+    this.subscriptions.push(schedulesSubscription);
   }
 
   displayedColumns: string[] = ['title', 'creator', 'description', 'location', 'startTime', 'endTime', 'actions'];

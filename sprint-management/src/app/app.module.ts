@@ -14,18 +14,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpUtilsService } from './core/services/http-utils.service';
 import { UsersService } from './state/users.service';
 import { SchedulesService } from './state/schedules.table';
+import { TaskEditComponent } from './pages/tasks/task-edit/task-edit.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     ThemeModule,
     BrowserAnimationsModule,
     PagesModule,
-    AppRoutingModule,
     NgbModule,
     HttpClientInMemoryWebApiModule.forRoot(FakeApiService),
     HttpClientModule
