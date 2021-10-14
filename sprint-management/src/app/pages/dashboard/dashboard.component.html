@@ -6,9 +6,9 @@
               <mat-card-title>New Task</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p [routerLink]="['/task', task.id]" *ngFor="let task of newTasks">
-                {{task.title}}
-              </p>
+              <div class="list-group">
+                <a [routerLink]="['/task', task.id]" *ngFor="let task of newTasks" class="list-group-item list-group-item-action">{{task.title}}</a>
+              </div>
             </mat-card-content>
             <mat-card-actions>
               <button routerLink="/task" mat-raised-button color="primary">Add</button>
@@ -20,9 +20,9 @@
               <mat-card-title>Tasks in process</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p *ngFor="let task of inProcessTasks">
-                {{task.title}}
-              </p>
+              <div class="list-group">
+                <a [routerLink]="['/task', task.id]" *ngFor="let task of inProcessTasks" class="list-group-item list-group-item-action">{{task.title}}</a>
+              </div>
             </mat-card-content>
           </mat-card>
           <mat-card class="col-md-4">
@@ -31,9 +31,22 @@
               <mat-card-title>Task got done</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p *ngFor="let task of completedTasks">
+              <mat-accordion>
+                <mat-expansion-panel *ngFor="let task of completedTasks" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{task.title}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p>Description: {{task.description}}</p>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <!-- <p *ngFor="let task of completedTasks">
                 {{task.title}}
-              </p>
+              </p> -->
+              <!-- <div class="list-group">
+                <a href="#multiCollapseExample1" *ngFor="let task of completedTasks" class="list-group-item list-group-item-action">{{task.title}}</a>
+              </div> -->
             </mat-card-content>
           </mat-card>
     </div>

@@ -78,6 +78,12 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
+  delete(){
+    this.taskService.deleteTask(this.task.id).subscribe(res => {
+      this.router.navigate(['/']);
+    })
+  }
+
   ngOnDestroy(): void {
   }
 

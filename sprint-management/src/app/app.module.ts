@@ -10,11 +10,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeApiService } from './mock-server/fake.api.service';
 import { TasksService } from './state/tasks.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpUtilsService } from './core/services/http-utils.service';
 import { UsersService } from './state/users.service';
-import { SchedulesService } from './state/schedules.table';
+import { SchedulesService } from './state/schedules.service';
 import { TaskEditComponent } from './pages/tasks/task-edit/task-edit.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { AuthService } from './core/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -31,10 +34,16 @@ import { TaskEditComponent } from './pages/tasks/task-edit/task-edit.component';
     HttpClientModule
   ],
   providers: [
+    AuthGuard,
     HttpUtilsService,
     TasksService,
     UsersService,
-    SchedulesService
+    SchedulesService,
+    AuthService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -14,8 +14,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
        SchedulesListComponent,
        SchedulesEditDialogComponent,
        DashboardComponent,
-       TaskEditComponent
+       TaskEditComponent,
+       LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -38,6 +42,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatDialogModule,
     MatNativeDateModule,
+    MatDividerModule,
+    MatExpansionModule,
     FormsModule,
     ReactiveFormsModule
   ]

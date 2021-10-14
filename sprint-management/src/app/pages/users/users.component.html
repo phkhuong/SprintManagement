@@ -25,6 +25,7 @@
                 <input value="{{user.position}}" type="text" class="form-control" formControlName="position">
               </ng-container>
               <img mat-card-image src="./assets/media/users/default.jpg" alt="default picture">
+              <button mat-button mat-raised-button [routerLink]="['/schedules/user', user.id]">Schedule</button>
             </mat-card-content>
             <mat-card-actions>
               <button *ngIf="editableUserId != user.id && !isAddMode" mat-button (click)="toEditMode(user)">Edit</button>

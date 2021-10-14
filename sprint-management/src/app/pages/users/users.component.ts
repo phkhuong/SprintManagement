@@ -70,7 +70,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     const user = this.prepareUser();
     if(user.id)
       this.editUser(user);
-    this.createUser(user);
+    else
+      this.createUser(user);
   }
 
   prepareUser():UserModel {

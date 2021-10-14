@@ -1,7 +1,7 @@
 import { Component, createPlatform, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScheduleModel } from 'src/app/core/models/schedule.model';
-import { SchedulesService } from 'src/app/state/schedules.table';
+import { SchedulesService } from 'src/app/state/schedules.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 

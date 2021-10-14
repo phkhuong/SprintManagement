@@ -26,6 +26,10 @@ export class SchedulesService {
 		return this.http.get<ScheduleModel>(API_SCHEDULES_URL + `/${scheduleId}`);
 	}
 
+	getScheduleByUserId(userId: number):Observable<ScheduleModel[]> {
+		return this.http.get<ScheduleModel[]>(API_SCHEDULES_URL + `?userId=${userId}`);
+	}
+
     updateSchedule(schedule: ScheduleModel): Observable<any> {
 		const httpHeader = this.httpUtils.getHTTPHeaders();
 		return this.http.put(API_SCHEDULES_URL, schedule, { headers: httpHeader });

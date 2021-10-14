@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ScheduleModel } from 'src/app/core/models/schedule.model';
-import { SchedulesService } from 'src/app/state/schedules.table';
+import { SchedulesService } from 'src/app/state/schedules.service';
 import {SchedulesEditDialogComponent} from '../schedules-edit/schedules-edit.dialog.component'
 
 export interface PeriodicElement {
@@ -22,10 +23,15 @@ export interface PeriodicElement {
 export class SchedulesListComponent implements OnInit, OnDestroy {
   schedules: ScheduleModel[];
   private subscriptions: Subscription[]= [];
-  constructor(private scheduleService: SchedulesService, private dialog: MatDialog) { }
+  constructor(private scheduleService: SchedulesService, private route: ActivatedRoute,private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.loadSchedules();
+    let userId = parseInt(this.route.snapshot.paramMap.get('id'));
+    if(!userId)
+      this.loadSchedules();
+    else{
+      this.loadSchedulesByUserId(userId);
+    }
   }
 
   ngOnDestroy(): void {
@@ -61,6 +67,12 @@ export class SchedulesListComponent implements OnInit, OnDestroy {
     })
     this.subscriptions.push(schedulesSubscription);
   }
-
+  
+  loadSchedulesByUserId(userId:number){
+    const schedulesSubscription = this.scheduleService.getScheduleByUserId(userId).subscribe(res => {
+      this.schedules = res;
+    })
+    this.subscriptions.push(schedulesSubscription);
+  }
   displayedColumns: string[] = ['title', 'creator', 'description', 'location', 'startTime', 'endTime', 'actions'];
 }

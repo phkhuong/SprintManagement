@@ -6,10 +6,12 @@
         <h1>Sprint Management</h1>
         <span class="menu-spacer"></span>
         <div>
-        <a mat-button routerLink="/"> Dashboard </a>
-        <a mat-button routerLink="/users"> User </a>
-        <a mat-button routerLink="/schedules"> Schedule </a>
-        <a mat-button routerLink="/login"> Login </a>
+            <a mat-button routerLink="/"> Dashboard </a>
+            <a mat-button routerLink="/users"> User </a>
+            <a mat-button routerLink="/schedules"> Schedule </a>
+            <a *ngIf="!isAuthenticated" mat-button routerLink="/login"> Login </a>
+            <span *ngIf="isAuthenticated">{{this.name}}</span>
+            <a *ngIf="isAuthenticated" mat-button (click)="logOut()"> Logout </a>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
