@@ -3,7 +3,8 @@
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Title</mat-label>
-          <input matInput formControlName="title" required>
+          <input matInput formControlName="title">
+          <mat-error *ngIf="scheduleForm.controls.title.errors?.required">Title is required</mat-error>
         </mat-form-field>
       </p>
       <p>
@@ -22,12 +23,13 @@
         <mat-form-field appearance="fill">
             <mat-label>Enter a date range</mat-label>
             <mat-date-range-input [rangePicker]="picker">
-              <input matStartDate formControlName="startTime" placeholder="Start date" required>
-              <input matEndDate formControlName="endTime" placeholder="End date" required>
+              <input matStartDate formControlName="startTime" placeholder="Start date">
+              <input matEndDate formControlName="endTime" placeholder="End date">
             </mat-date-range-input>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
-          
+            <mat-error *ngIf="scheduleForm.controls.startTime.errors?.required">Start time is required</mat-error>
+            <mat-error *ngIf="scheduleForm.controls.endTime.errors?.required">End time is required</mat-error>
             <mat-error *ngIf="scheduleForm.controls.startTime.hasError('matStartDateInvalid')">Invalid start date</mat-error>
             <mat-error *ngIf="scheduleForm.controls.endTime.hasError('matEndDateInvalid')">Invalid end date</mat-error>
           </mat-form-field>

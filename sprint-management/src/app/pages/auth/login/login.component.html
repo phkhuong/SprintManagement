@@ -14,6 +14,8 @@
                 <input type="password" matInput placeholder="Password" #password="ngModel" name="password" [(ngModel)]="userInfo.password" required/>
                 <mat-error *ngIf="password.errors?.required">Password is required</mat-error>
               </mat-form-field>
+              <mat-error *ngIf="loginError">{{loginError}}</mat-error>
+              <!-- <p *ngFor="let loginError of loginErrors" class="field-validation-error">{{loginError}}</p> -->
             </mat-card-content>
             <mat-card-actions>
               <div class="button-flex-container">

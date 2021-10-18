@@ -1,13 +1,14 @@
 import { createPlatform, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Credential } from 'src/app/core/models/credentials';
+import { ErrorResponse } from '../models/error-response';
 
 @Injectable()
 export class AuthService {
-    BASE_URL = 'http://localhost:49474/api';
+    BASE_URL = 'api/login';
     USERNAME_KEY = 'userName';
     TOKEN_KEY = 'token';
 
@@ -22,15 +23,12 @@ export class AuthService {
     }
 
     login(credentials: Credential) {
-        // return this.http.post<any>(`${this.BASE_URL}/accounts/login`, credentials).pipe(
-        //     tap(res => this.authenticate(res)),
-        //     catchError(this.handleError('login'))
-        // );
-        console.log(credentials);
-        return of({
-            username: credentials.username,
-            token: 'fake-jwt-token'
-        }).subscribe(res => this.authenticate(res))
+        return this.http.post<any>(`${this.BASE_URL}`, credentials)
+        // .subscribe(res => this.authenticate(res), error => this.handleError('login'))
+        .pipe(
+            tap(res => this.authenticate(res)),
+            catchError(err => this.handleError(err, 'login'))
+        );
     }
 
     logout() {
@@ -48,14 +46,11 @@ export class AuthService {
         this.router.navigate(['/']);
     }
 
-    private handleError<T>(operation = 'operation') {
-        return (error: any) => {
+    private handleError<T>(errorResponse: HttpResponse<ErrorResponse>, operation = 'operation') {
+        // TODO: send the error to remote logging infrastructure
+        console.error(errorResponse); // log to console instead
 
-            // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
-
-            // Let the app keep running by returning error.
-            return of(error);
-        };
+        // Let the app keep running by returning error.
+        return of(errorResponse.body);
     }
 }

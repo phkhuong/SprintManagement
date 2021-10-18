@@ -14,6 +14,7 @@ import { TasksService } from 'src/app/state/tasks.service';
 export class TaskEditComponent implements OnInit, OnDestroy {
   taskForm: FormGroup;
   task: TaskModel;
+  isEditMode: Boolean = false;
   private subscriptions: Subscription[] = [];
   
   constructor(private taskService: TasksService, private fb: FormBuilder, private router:Router, private route: ActivatedRoute) { }
@@ -24,6 +25,7 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     this.task = new TaskModel();
     this.createForm();
     if(id != null){
+      this.isEditMode = true;
       this.taskService.getTaskById(parseInt(id)).subscribe(res => {
         this.task = res;
         this.createForm();
@@ -34,7 +36,7 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     this.taskForm = this.fb.group({
       title: [this.task.title, Validators.required],
       description: [this.task.description],
-      status: [this.task.status]
+      status: ["new", Validators.required]
     })
   }
 

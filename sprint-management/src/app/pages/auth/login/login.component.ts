@@ -12,16 +12,21 @@ import { Credential } from 'src/app/core/models/credentials';
 export class LoginComponent implements OnInit {
 
   private subscriptions: Subscription [] = [];
-  userInfo: Credential = new Credential();
+  userInfo: Credential;
+  loginError: string;
 
   constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
+    this.userInfo =  {
+      username : 'admin',
+      password: 'pass@123'
+    };
   }
 
   onSubmit(form: NgForm){
     if(!form.invalid){
-      this.authService.login(this.userInfo);
+      this.authService.login(this.userInfo).subscribe(error => {console.log(error);this.loginError = error.error; });;
     }
   }
 

@@ -30,8 +30,8 @@ export class SchedulesEditDialogComponent implements OnInit, OnDestroy {
       title: [this.schedule.title, Validators.required],
       description: this.schedule.description,
       location: this.schedule.location,
-      startTime: this.schedule.startTime,
-      endTime: this.schedule.endTime
+      startTime: [this.schedule.startTime,Validators.required],
+      endTime: [this.schedule.endTime,Validators.required]
     })
   }
 

@@ -3,7 +3,8 @@
     <p>
       <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
-        <input matInput formControlName="title" required>
+        <input matInput formControlName="title">
+        <mat-error *ngIf="taskForm.controls.title.errors?.required">Title is required</mat-error>
       </mat-form-field>
     </p>
     <p>
@@ -20,6 +21,7 @@
         <mat-radio-button value="inProgress">In Progress</mat-radio-button>
         <mat-radio-button value="done">Done</mat-radio-button>
       </mat-radio-group>
+      <mat-error *ngIf="taskForm.controls.status.errors?.required">Title is required</mat-error>
     </div>
     <button type="button" mat-raised-button
         matTooltip="Cancel changes" (click)="cancelChanges()">
@@ -30,7 +32,7 @@
       Lưu
     </button>
     &nbsp;
-    <button type="button" mat-raised-button color="warn" (click)="delete()"
+    <button *ngIf="isEditMode" type="button" mat-raised-button color="warn" (click)="delete()"
         matTooltip="Delete">
       Xóa
     </button>
